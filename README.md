@@ -15,3 +15,7 @@ We downloaded a csv file containing 152 rows and 54677 columns, available on the
 ## Principal Component Analysis
 When it comes to the dimensionality reduction, Principal Component Analysis (PCA), which comes under the unsupervised learning techniques of Machine Learning (ML) is primarily used for the visualization of the high-dimensional data in the new set of coordinates defined using PCA. Here we use PCA in scikit-learn decomposition module.  PCA aids in the dimensionality reduction by orthogonally projecting the data onto lower-dimension linear space by maximizing the variance of projected data and minimizing the mean squared distance between projection and data points.  
   In this application, PCA is applied on the pre-processed data set to visualize the data in newly defined principal components. In this project, the data is visualized in both 2D and 3D using the first two principal components and first three principal components respectively. Cumulative variance for the principal components is plotted against the number of principal components to analyze the number of principal components needed to achieve the required variance.
+# 5. Supervised Machine Learning
+# 6. Model Evaluation
+## 6.1 Results for Unsupervised Learning Model
+#### Cumulative Variance 
