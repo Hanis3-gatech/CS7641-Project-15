@@ -18,4 +18,5 @@ When it comes to the dimensionality reduction, Principal Component Analysis (PCA
 # 5. Supervised Machine Learning
 # 6. Model Evaluation
 ## 6.1 Results for Unsupervised Learning Model
-#### Cumulative Variance 
+### Cumulative Variance
+![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/cutoffvariance.png)
