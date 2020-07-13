@@ -45,9 +45,9 @@ RMSE Linear Regression: 10.246049817401543
 
 Next, ridge regression was used for training and testing. Since ridge regression is a type of regression technique that uses regularization constant (lambda) for weights prediction therefore it was required to find a lambda value that could minimize the error. For this purpose a 10-fold cross validation was carried out, and from the figure below it can be seen that the optimal value turned out to be 50000.  
 
-|![alt-text-1](Crossvalidation.png "title-1") ![alt-text-2](Datatable.PNG "title-2")|
-|:--:|
-|*Fig 4. 10-fold cross validation*|
+|![alt-text-1](Crossvalidation.png "title-1") | ![alt-text-2](Datatable.PNG "title-2")|
+|:--:|:--:|
+|*Fig 4. 10-fold cross validation*| Sample |
 
 After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained with and without PCA that PCA is not the most accurate technique to handle the dataset with D>>>N. Therefore it was required to come up with a novel algorithm that can potently handle the data with very large number of features compared to samples. An algorithm for random lasso regression was written to cater this problem which will be discussed in detail under supervised learning part of the project.(Moreover it was also learned that linear and ridge regression are not very suitable for categorical dataset)
 # 5. Supervised Machine Learning
