@@ -38,3 +38,5 @@ This curve shows much of the total variance is contained within the first 'n' PC
 |![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/PCA3D.png)|
 |:--:|
 |*Space*|
+
+An html link for a hover 3D plot is available here
