@@ -33,3 +33,8 @@ This curve shows much of the total variance is contained within the first 'n' PC
 |:--:|
 |*Space*|
 
+### 2D PCA
+
+|![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/PCA 2D.png)|
+|:--:|
+|*Space*|
