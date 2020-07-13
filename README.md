@@ -21,6 +21,9 @@ When it comes to the dimensionality reduction, Principal Component Analysis (PCA
 ### Cumulative Variance
 PCA can be used to describe how many components can be used to describe the data completely. We  will determine this by looking at the cumulative explained variance ratio as a function of the number of components.  
 
-![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/cutoffvariance.png)  
+|![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/cutoffvariance.png)|
+|:--:|
+|*Space*|
+
 This curve shows much of the total variance is contained within the first 'n' PCA components. We can see that our first 30 PCA components contain approximately 60% of the variance. We are interested in the number of components that retain approximately 99% of variance. From the above graph we can see that 99% of variance is contained in the first 143 components. The remaining components contain information that is mostly redundant and is not useful in describing the data labels. 
 
