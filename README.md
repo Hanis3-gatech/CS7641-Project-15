@@ -24,13 +24,13 @@ This curve shows much of the total variance is contained within the first 'n' PC
 
 ### 2D Principal Component Data Visualization 
 As it can be seen in the presented results for the cumulative variance retained by the number of principal components that first two principal components retain greater amount of variance compared to the rest of principal components, therefore, we have plotted the data using the original labels in the space of first two principal components <img src="https://render.githubusercontent.com/render/math?math=PC_{1} \text{ and } PC_{2}">
-|![alt-text-1](PCA2D.png)|
+|![alt-text-2](PCA2D.png)|
 |:--:|
 |*Fig 2. 2D visualization of data using first two principal components*|
 
 ### 3D Principal Component Data Visualization 
 Similarly, we have plotted the data using the original labels in the space of first three principal components <img src="https://render.githubusercontent.com/render/math?math=PC_{1}, PC_{2} \text{ and } PC_{3}">
-|![alt-text-1](PCA3D.png)|
+|![alt-text-3](PCA3D.png)|
 |:--:|
 |*Fig 3. 3D visualization of data using first three principal components*|
 
@@ -45,7 +45,7 @@ RMSE Linear Regression: 10.246049817401543
 
 Next, ridge regression was used for training and testing. Since ridge regression is a type of regression technique that uses regularization constant (lambda) for weights prediction therefore it was required to find a lambda value that could minimize the error. For this purpose a 10-fold cross validation was carried out, and from the figure below it can be seen that the optimal value turned out to be 50000.  
 
-|![alt-text-1](Crossvalidation.png "title-1") | ![alt-text-2](Datatable.PNG "title-2")|
+|![alt-text-4](Crossvalidation.png "title-1") | ![alt-text-2](Datatable.PNG "title-2")|
 |:--:|:--:|
 |*Fig 4. 10-fold cross validation*| Sample |
 
