@@ -39,4 +39,4 @@ Similarly, we have plotted the data using the original labels in the space of fi
 |:--:|
 |*Fig 3. 3D visualization of data using first three principal components*|
 
-An html link for a hover 3D plot is available here
+
