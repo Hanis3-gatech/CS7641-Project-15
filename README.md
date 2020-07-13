@@ -16,8 +16,7 @@ When it comes to the dimensionality reduction, Principal Component Analysis (PCA
 ## Results for Unsupervised Learning Model
 ### Cumulative Variance
 PCA can be used to describe how many components can be used to describe the data completely. We  will determine this by looking at the cumulative explained variance ratio as a function of the number of components.  
-
-|![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/cutoffvariance.png)|
+|![alt-text-1](cutoffvariance.png)|
 |:--:|
 |*Fig 1. Cumulative variance plotted against number of principal components*|
 
@@ -25,13 +24,13 @@ This curve shows much of the total variance is contained within the first 'n' PC
 
 ### 2D Principal Component Data Visualization 
 As it can be seen in the presented results for the cumulative variance retained by the number of principal components that first two principal components retain greater amount of variance compared to the rest of principal components, therefore, we have plotted the data using the original labels in the space of first two principal components <img src="https://render.githubusercontent.com/render/math?math=PC_{1} \text{ and } PC_{2}">
-|![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/PCA2D.png)|
+|![alt-text-1](PCA2D.png)|
 |:--:|
 |*Fig 2. 2D visualization of data using first two principal components*|
 
 ### 3D Principal Component Data Visualization 
 Similarly, we have plotted the data using the original labels in the space of first three principal components <img src="https://render.githubusercontent.com/render/math?math=PC_{1}, PC_{2} \text{ and } PC_{3}">
-|![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/PCA3D.png)|
+|![alt-text-1](PCA3D.png)|
 |:--:|
 |*Fig 3. 3D visualization of data using first three principal components*|
 
