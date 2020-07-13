@@ -34,7 +34,7 @@ As it can be seen in the presented results for the cumulative variance retained 
 |*Space*|
 
 ### 3D PCA
-
+Similarly, we have plotted the data using the original labels in the space of first three principal components <img src="https://render.githubusercontent.com/render/math?math=PC_{1}, PC_{2} \text{ and } PC_{3}">
 |![Image of PCA](https://github.com/Hanis3-gatech/CS7641-Project-15/blob/master/PCA3D.png)|
 |:--:|
 |*Space*|
