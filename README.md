@@ -40,7 +40,7 @@ Similarly, we have plotted the data using the original labels in the space of fi
 |*Fig 3. 3D visualization of data using first three principal components*|
 
 
-# REGRESSION ANALYSIS WITH AND WITHOUT PCA
+## REGRESSION ANALYSIS WITH AND WITHOUT PCA
 In this section, we will see that how PCA can be used to improve the prediction through regression analysis. Linear and ridge regression were applied on dimensionally reduced data, obtained through PCA. The orignal dataset had 54765 features which were reduced down to 151.  
 
 After application of PCA, a new dataset with 151 principal components was achieved. The original dataset had categorical labels having 6 different categories, however it is not possible to use categorical data directly for regression and hence label encoding was used to assign numeric values to the labels. This new dataset and transformed labels were then divided in to training and testing data using 80-20 division rule. 
@@ -50,3 +50,8 @@ RMSE Linear Regression: 10.246049817401543
 
 Next, ridge regression was used for training and testing. Since ridge regression is a type of regression technique that uses regularization constant (lambda) for weights prediction therefore it was required to find a lambda value that could minimize the error. For this purpose a 10-fold cross validation was carried out, and from the figure below it can be seen that the optimal value turned out to be 50000.  
 
+|![alt-text-1](Crossvalidation.png "title-1") ![alt-text-2](Datatable.PNG "title-2")|
+|:--:|
+|*Fig 4. 10-fold cross validation*|
+
+After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained with and without PCA that PCA is not the most accurate technique to handle the dataset with D>>>N. Therefore it was required to come up with a novel algorithm that can potently handle the data with very large number of features compared to samples. An algorithm for random lasso regression was written to cater this problem which will be discussed in detail under supervised learning part of the project.(Moreover it was also learned that linear and ridge regression are not very suitable for categorical dataset)
