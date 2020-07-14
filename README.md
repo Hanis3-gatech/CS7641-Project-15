@@ -50,7 +50,7 @@ Next, ridge regression was used for training and testing. Since ridge regression
 
 |![alt-text-4](Crossvalidation.png "title-1") | ![alt-text-2](Datatable.PNG "title-2")|
 |:--:|:--:|
-|*Fig 4. 10-fold cross validation*| Sample |
+|*Fig 4. 10-fold cross validation*|
 
 After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained with and without PCA that PCA is not the most accurate technique to handle the dataset with D>>N. Therefore it was required to come up with a novel algorithm that can potently handle the data with very large number of features compared to samples. An algorithm for random lasso regression was written to cater this problem which will be discussed in detail under supervised learning part of the project.(Moreover it was also learned that linear and ridge regression are not very suitable for categorical dataset)
 
