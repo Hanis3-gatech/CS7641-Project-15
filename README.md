@@ -103,7 +103,32 @@ The whole point of regression is to predict a coefficient for each feature, whic
   - It even has two λ's, which is pretty neat. If either λ_1 or λ_2  are zero, then the Elastic-Net would become either Lasso or Ridge Regression.
 #### 5. **Adaptive Lasso & Random Lasso → Slightly More 0's than Lasso**
   - These are what we researched. More on them later.
+  
+[Insert Image of RMSE on Low Dim Data...]
+  
+|![alt-text-5](RME_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 5. 1|
 
+[Analysis Here...]
+
+|![alt-text-6](F1_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 6. 1|
+
+[Analysis Here...]
+
+|![alt-text-7](Runtime_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 7. 1|
+
+[Analysis Here...]
+
+|![alt-text-8](RME_Constant.png "title-1")|
+|:--:|
+|*Fig 8. 1|
+
+[Analysis Here...]
 
 
 # 6. Model Evaluation
