@@ -39,21 +39,29 @@ Similarly, we have plotted the data using the original labels in the space of fi
 |*Fig 3. 3D visualization of data using first three principal components*|
 
 
-### Regression Analysis with and without PCA
-In this section, we will see that how PCA can be used to improve the prediction through regression analysis. Linear and ridge regression were applied on dimensionally reduced data, obtained through PCA. The orignal dataset had 54765 features which were reduced down to 151.  
+## Regression Analysis with PCA
+In this section, we will see that how PCA can be used to improve the prediction through regression analysis. Linear, ridge and Lasso regression were applied on dimensionally reduced data, obtained through PCA. After application of PCA, a new dataset with 151 principal components was achieved. The original dataset had categorical labels having 6 different categories, however it is not possible to use categorical data directly for regression and hence label encoding was used to assign numeric values to the labels. This new dataset and transformed labels were firstly divided in to training and testing data using 80-20 division rule such that the training data contains the first 80% of the labels. For this case, the RMSE value obtained for each class of regression was pretty high and on analysis it was revealed that data on which the testing was done had labels on which data was not trained. It showed us that in case the data labels are more sequential such that one category of label is clustered in the beginning and the other in the end. To overcome this issue, we decided on splitting the data in to training and testing sets randomly using scikit command. As exepected, the RMSE values improved with this approach.
 
-After application of PCA, a new dataset with 151 principal components was achieved. The original dataset had categorical labels having 6 different categories, however it is not possible to use categorical data directly for regression and hence label encoding was used to assign numeric values to the labels. This new dataset and transformed labels were then divided in to training and testing data using 80-20 division rule. 
-
+### Linear Regression
 Initially, the model was trained using linear regression and then the test data was used to find the predicted labels and rmse came out to be 10.246 as shown below from output.  
 RMSE Linear Regression: 10.246049817401543  
 
-Next, ridge regression was used for training and testing. Since ridge regression is a type of regression technique that uses regularization constant (lambda) for weights prediction therefore it was required to find a lambda value that could minimize the error. For this purpose a 10-fold cross validation was carried out, and from the figure below it can be seen that the optimal value turned out to be 50000.  
+### Ridge Regression
+Ridge regression was then used for training and testing. Since ridge regression is a type of regression technique that uses regularization constant (λ) for weights prediction therefore it was required to find a lambda value that could minimize the error. For this purpose a 10-fold cross validation was carried out, as shown in the figure below. 
 
 |![alt-text-4](Crossvalidation.png "title-1") | ![alt-text-2](Datatable.PNG "title-2")|
 |:--:|:--:|
 |*Fig 4. 10-fold cross validation*|*Fig 5. Optimal value for λ*|
 
-After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained with and without PCA that PCA is not the most accurate technique to handle the dataset with D>>N. Therefore it was required to come up with a novel algorithm that can potently handle the data with very large number of features compared to samples. An algorithm for random lasso regression was written to cater this problem which will be discussed in detail under supervised learning part of the project.(Moreover it was also learned that linear and ridge regression are not very suitable for categorical dataset)
+### Lasso Regression
+When Lasso Regression was carried out on the pca applied dataset, expectedly the results improved as shown below in the RMSE value. Also, 10-fold cross validation was carried out to determine the optimal value of regularization parameter (λ)
+
+RMSE Lasso Regression: 2.4187641419349832
+Best λ: 50
+
+After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained after applying regression techniques on dimensionally reduced data that PCA is not the most accurate technique to handle the dataset with D > > > >N. . For furthur analysis on this issue, supervised learning algorithms will be applied for both dimensionality reduction and label prediction. Least square, Ridge, Elastic Net, Lasso, Adaptive Lasso and a novel "Random Lasso" techniques would be used and results will be discussed to compare unsupervised and supervised machine learning performance.
+
+
 
 
 
