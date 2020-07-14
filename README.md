@@ -1,6 +1,7 @@
-# Curse of Dimensionality through Random Lasso Regression
+# Handling Curse of Dimensionality through Random Lasso Regression
 ### Bilal Mufti, Hira Anis, James Matthew Hamilton, Noor-us-Saba Khan, Shakir Shakoor Khatti
 # 1. Introduction
+In real-world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is of the order of 500. In such situations, the traditional regression techniques fail to produce beneficial results exhibiting decreasing accuracy with ratio. This shortcoming of regression analysis leads to research constraints. One may suggest simply get more samples; however, it is not always plausible and cost-effective, hence a more deterministic approach is to revamp mathematical models which are the core of this project. 
 # 2. Problem Statement
 In real world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is in the order of 500. In such situations, the traditional regression techniques fail to produce beneficial results exhibiting decreasing accuracy with increasing features to datapoint ratio. This shortcoming of regression models leads to research constraints in this and other concerned fields. 
 # 3. Data Set & Basic Idea
