@@ -8,7 +8,7 @@ In real world scenarios, especially in the field of bioinformatics and genomics,
  The Dataset GSE45827 on breast cancer gene expression from CuMiDa is taken from Kaggle. The dataset is available here ([link](https://www.kaggle.com/brunogrisci/breast-cancer-gene-expression-cumida)). Kaggle is an online community of data scientists and machine learning practitioners and offering public datasets for algorithm testing. 
 The dataset comprises of 151 samples and gene expression data values for 54676 genes . There are six classes of sample types namely, 'HER' , 'basal', 'cell_line', 'luminal_A', 'luminal_B' and 'normal'.
 ## Data Pre-Processing and formatting
-We downloaded a csv file containing 152 rows and 54677 columns, available on the link mentioned earlier.   
+We downloaded a CSV file containing 152 rows and 54677 columns, available on the link mentioned earlier.   
   The first column is a sample identification number (samples), and the second is the sample type (type). We loaded the "type" column as a dataframe and used that for color coding and visualization of the PCA plots later. We used the header for gene ids as identification marker to form an array for processing. We used this array to check for 'Nan' or missing values and after confirming that there are none, we proceed to use it as our processing dataset. 
 # 4. Unsupervised Machine Learning
 ## Principal Component Analysis
