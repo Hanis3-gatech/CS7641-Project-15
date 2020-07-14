@@ -57,6 +57,9 @@ After doing unsupervised learning analysis using PCA, it was observed from the R
 
 
 
+
+
+
 # 5. Supervised Machine Learning
 Supervised learning looks at both an independent (X) and dependent (y) variable, where we attempt to build some model using the given data in X to predict the values in y. Unsupervised learning only looks at and independent variable (X) and seeks to derive some meaning from this dataset alone. We will limit our focus to the subset of supervised learning known as **regression analysis** here.
 
@@ -64,22 +67,39 @@ Supervised learning looks at both an independent (X) and dependent (y) variable,
 
 * The **dependent variable**  is a vector of length N, where N is once again the samples.
 
-### High Dimensional Data
+### High Dimensional Data | Intuitively Explained
 
 Regression analysis tends to work best when there are more samples than features. **High Dimensional Data** is the term we use then features exceeds samples. The performance of regression techniques will continue to degrade as the ratio of features to samples increases. **This makes some sense intuitively, as N _(samples)_ should really be thought of as our "data", and D _(features)_ is actually something we are trying to predict to ultimately predict y.** The more data we have, the easier it is to make discover how each D predicts y. The larger D is the more features we have to examine, and use to predict y.
 
-Alas, it does not benefit us to look at more features, despite the impression that more-data-is-better. In fact, we would like to examine is little features as possible. So if someone were to tell you, "I have a ton of data to look at, we can get some great results. The csv is 13,033,599 by 88!" You should respond, "Is this 13 million features?", to which a "yes" response would warrant the collusion, "we can not hope to derive anything meaningful from this."
+Alas, it does not benefit us to look at more features, despite the impression that more-data-is-better. In fact, we would like to examine is little features as possible. 
+
+> So if someone were to tell you, "I have a ton of data to look at, we can get some great results. The csv is 13,033,599 by 88!" You should respond, "Is this 13 million features?". To which a "yes" would warrant the conclusion, "We can not hope to derive anything meaningful from this." - A Story
 
 #### Bad:
 
 <p style="text-align: center;">Features >> Samples</p>  
 <p style="text-align: center;">D >> N</p>  
 
-But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here.
+But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here, but first we must discuss...
 
 ### Dimension Reduction
 
+Some of the features in a dataset may not be meaningful in anyway. Our goal is to eliminate these. By reducing the number of features we will essentially have more data; as discussed above. We discussed PCA, which uses a slightly different flavor or a goal. Indeed PCA reduces dimensionally, but **PCA is does not even look at the response variable y**. In general PCA will not help any model perform better in terms of accuracy, and we saw this above. This is because PCA treats the features with low variance as unimportant, and the features with high variance as important. It can be such that these high variance features have nothing to do with the response variable. It can be such that these low variance features have something to do with the response variable.**Alas, we can use regression for dimension reduction, which will take into consideration the response variable!**
 
+The whole point of regression is to predict a coefficient for each feature, which can be used as a model, a formula, to predict y. There are a handful of beautiful regression techniques that researchers have at their disposal:
+
+1. **Ordinary Least Squares → No 0's**
+- Creates the most optimal line of best fit.
+- All coefficients predicted are non-zero.
+- I will show you results later that show the below _'advanced'_ regression methods outperforming Ordinary Least Squares. Counterintuitively, this is actually the best regression method. No other regression method can ever be able to hope to outperform this. If you understand this you truly understand regression.
+2. ** Ridge Regression → No 0's **
+- Similar to Ordinary Least Squares, but introduces a tunable variable λ that improves accuracy in exchange for a small amount for bias. As we increase bias we  decrease variance. There is a tradeoff.
+3. ** Lasso → Many 0's **
+- Similar to Ridge Regression in that there is a tunable variable λ. The difference is that Lasso shrink coefficients that have little to do with the response variable down to 0. (Is this what we are looking for.
+4. **  Elastic-Net → Some 0's **
+- This is a hybrid between Ridge Regression and Lasso. So why didn't I put it in the middle of Ridge Regression and Lasso? Chronologically, it was invented later and uses both ridge and lasso. It even has two λ's, which is pretty neat. If either λ_1 or λ_2  are zero, then the Elastic-Net would become either Lasso or Ridge Regression.
+5. **  Adaptive Lasso & Random Lasso → Slightly More 0's than Lasso **
+- These are what we researched. More on them later.
 
 
 
