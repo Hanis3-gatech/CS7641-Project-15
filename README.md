@@ -53,5 +53,35 @@ Next, ridge regression was used for training and testing. Since ridge regression
 |*Fig 4. 10-fold cross validation*| Sample |
 
 After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained with and without PCA that PCA is not the most accurate technique to handle the dataset with D>>>N. Therefore it was required to come up with a novel algorithm that can potently handle the data with very large number of features compared to samples. An algorithm for random lasso regression was written to cater this problem which will be discussed in detail under supervised learning part of the project.(Moreover it was also learned that linear and ridge regression are not very suitable for categorical dataset)
+
+
+
+
 # 5. Supervised Machine Learning
+Supervised learning looks at both an independent (X) and dependent (y) variable, where we attempt to build some model using the given data in X to predict the values in y. Unsupervised learning only looks at and independent variable (X) and seeks to derive some meaning from this dataset alone. We will limit our focus to the subset of supervised learning known as **regression analysis** here.
+
+* The **independent variable** is an NxD matrix, where N is the samples and D is the features.
+
+* The **dependent variable**  is a vector of length N, where N is once again the samples.
+
+### High Dimensional Data
+
+Regression analysis tends to work best when there are more samples than features. **High Dimensional Data** is the term we use then features exceeds samples. The performance of regression techniques will continue to degrade as the ratio of features to samples increases. **This makes some sense intuitively, as N _(samples)_ should really be thought of as our "data", and D _(features)_ is actually something we are trying to predict to ultimately predict y.** The more data we have, the easier it is to make discover how each D predicts y. The larger D is the more features we have to examine, and use to predict y.
+
+Alas, it does not benefit us to look at more features, despite the impression that more-data-is-better. In fact, we would like to examine is little features as possible. So if someone were to tell you, "I have a ton of data to look at, we can get some great results. The csv is 13,033,599 by 88!" You should respond, "Is this 13 million features?", to which a "yes" response would warrant the collusion, "we can not hope to derive anything meaningful from this."
+
+#### Bad:
+
+<p style="text-align: center;">Features >> Samples</p>  
+<p style="text-align: center;">D >> N</p>  
+
+But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here.
+
+### Dimension Reduction
+
+
+
+
+
+
 # 6. Model Evaluation
