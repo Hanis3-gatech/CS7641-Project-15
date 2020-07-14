@@ -1,11 +1,12 @@
 # Handling the Curse of Dimensionality through Random Lasso Regression
 ### Bilal Mufti, Hira Anis, James Matthew Hamilton, Noor-us-Saba Khan, Shakir Shakoor Khatti
-# 1. Introduction
-In real-world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is of the order of 500. In such situations, the traditional regression techniques fail to produce beneficial results exhibiting decreasing accuracy with ratio. This shortcoming of regression analysis leads to research constraints. One may suggest simply get more samples; however, it is not always plausible and cost-effective, hence a more deterministic approach is to revamp mathematical models which are the core of this project. 
-# 2. Problem Statement
+
+# 1. Problem Statement
 In real world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is in the order of 500. In such situations, the traditional regression techniques fail to produce beneficial results exhibiting decreasing accuracy with increasing features to datapoint ratio. This shortcoming of regression models leads to research constraints in this and other concerned fields. 
+# 2. Introduction
+In this project a data set with higher number of features and fewer samples is chosen to test dimensionality reduction algorithms both using unsupervised and supervised learning techniques. Principal component analysis is used in the unsupervised models to perform the dimensionality reduction and different regression techniques are employed in supervised models to compare the results and effectiveness of each regression technique in reducing the number of features.    
 # 3. Data Set & Basic Idea
- The Dataset GSE45827 on breast cancer gene expression from CuMiDa is taken from Kaggle. The dataset is available here ([link](https://www.kaggle.com/brunogrisci/breast-cancer-gene-expression-cumida)). Kaggle is an online community of data scientists and machine learning practitioners and offering public datasets for algorithm testing. 
+The Dataset GSE45827 on breast cancer gene expression from CuMiDa is taken from Kaggle. The dataset is available here ([link](https://www.kaggle.com/brunogrisci/breast-cancer-gene-expression-cumida)). Kaggle is an online community of data scientists and machine learning practitioners and offering public datasets for algorithm testing. 
 The dataset comprises of 151 samples and gene expression data values for 54676 genes . There are six classes of sample types namely, 'HER' , 'basal', 'cell_line', 'luminal_A', 'luminal_B' and 'normal'.
 ## Data Pre-Processing and formatting
 We downloaded a CSV file containing 152 rows and 54677 columns, available on the link mentioned earlier.   
