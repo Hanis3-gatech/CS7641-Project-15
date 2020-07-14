@@ -92,15 +92,19 @@ The whole point of regression is to predict a coefficient for each feature, whic
   - Creates the most optimal line of best fit.
   - All coefficients predicted are non-zero.
   - I will show you results later that show the below *'advanced'* regression methods outperforming Ordinary Least Squares. Counterintuitively, this is actually the best regression method. No other regression method can ever be able to hope to outperform this. If you understand this you truly understand regression.
+
 #### 2. **Ridge Regression → No 0's**
   - Similar to Ordinary Least Squares, but introduces a tunable variable λ that improves accuracy in exchange for a small amount for bias.
   - As we increase bias we  decrease variance. There is a tradeoff.
+
 #### 3. **Lasso → Many 0's**
   - Similar to Ridge Regression in that there is a tunable variable λ.
   -The difference is that Lasso shrink coefficients that have little to do with the response variable down to 0. _(Is this what we are looking for?)_
+
 #### 4. **Elastic-Net → Some 0's**
   - This is a hybrid between Ridge Regression and Lasso. So why didn't I put it in the middle of Ridge Regression and Lasso? Chronologically, it was invented later and uses both ridge and lasso.
   - It even has two λ's, which is pretty neat. If either λ_1 or λ_2  are zero, then the Elastic-Net would become either Lasso or Ridge Regression.
+
 #### 5. **Adaptive Lasso & Random Lasso → Slightly More 0's than Lasso**
   - These are what we researched. More on them later.
   
