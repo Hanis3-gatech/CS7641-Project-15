@@ -211,7 +211,9 @@ Adaptive Lasso:  [0. 0. 0. 0. 0.]
 
 Looking at the actual coefficients of at the aforementioned indices yields nothing relevant to the task at hand – find important features. However, it does highlight that Elastic-net/Lasso will have higher coefficient values in general than OLS/Ridge. This is because Elastic-net/Lasso reduces many coefficients to zero. The  fallen coefficients forfeit their minuscule value to the non-zero coefficients. Since many coefficients reduced to zero for our dataset, there is a lot of bulk added to these non-zero coefficients.
 
-[Insert Image]
+|![alt-text-9](real_data_regression.png "title-1")|
+|:--:|
+|*Fig 9. 1|
 
 It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. I cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
 
@@ -265,11 +267,15 @@ RMSE: 3.903979072091087 (L1:L2 = 0.9310344827586207)
 RMSE: 1.1095760217965567 (L1:L2 = 0.9655172413793103)
  </pre>
 
-[Insert Image]
+|![alt-text-10](elastic_rmse.png "title-1")|
+|:--:|
+|*Fig 19. 1|
 
 Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 rations of 0.13 and 0.37. 
 
-[Insert Image]
+|![alt-text-11](elastic_importance.png "title-1")|
+|:--:|
+|*Fig 11. 1|
 
 We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweat spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
 
