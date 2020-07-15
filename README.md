@@ -162,15 +162,16 @@ Our simulated data showed that performance of even lasso begins to decline once 
 <pre>
 Least Squares RMSE: 1.6305999856398685
 Ridge RMSE: 1.6305999856398685
-Elastic RMSE: 3.503569676558001 ← Check this
+Elastic RMSE: 3.503569676558001
 Lasso RMSE: 1.1305735649223199
 Adaptive RMSE: 3.0044117670893855
 Guess Zeros RMSE: 3.0044117670893855
 Guess Mean RMSE: 1.950980339219909
 </pre>
 
-In a most naive way – we run all the regression methods we've got at this dataset. What was most critical to us is that the RMSE of a regression method is less than a naive guess of the mean of y. If out a regression methods RMSE is near a naive guess of the mean of y, then it is the case that essentially random guessing would yield more meaningful results. We see that Lasso and Elastic-net show great promise, while OLS and Ridge are at least reasonable.
+In a somewhat immature way – we fire every regression methods we've got at this dataset. What was most critical to us is that the RMSE of a regression method is less than a naive guess of the mean of y. If out a regression methods RMSE is near or above a naive guess of the mean of y, then it is the case that a random toddler guessing would yield more meaningful results. We see that Lasso and Elastic-net show great promise, while OLS and Ridge are at-least reasonable.
 <pre>
+**Number of Non-zero Coefficients**
 Important Features Least Squares:   54675  
 Important Features Ridge:           54675  
 Important Features Elastic-net:     195  
@@ -178,11 +179,16 @@ Important Features Lasso:           253
 Important Features Adaptive Lasso:  0  
 </pre>
 
-What is important to us is the feature reduction. Below is a raw count of the non-zeros coefficients after running each regression method. So, these features can be thought of as important. We know that Ridge Regression and Least Squares will indeed not produce any zero'd coefficients, but we included these values to emphasize that point. Elastic-net and Adaptive Lasso are reasonably near the number of features to-which PCA reduced our dataset. It could also be the case that Lasso and Elastic-net, of low L1:L2, often reduce a the dataset to a near-square matrix. **We can not be certian, and it could very-well be the case that thousands of features are important!** This is why the simulated data regression research from before is of importance. However all these values seam quite reasonable.
+What is important to us is the feature reduction. Below is a raw count of the non-zeros coefficients after running each regression method. So, these features can be thought of as important. We know that Ridge Regression and Least Squares will indeed not produce any zero'd coefficients, but we included these values to emphasize that point. Elastic-net and Adaptive Lasso are reasonably near the number of features to-which PCA reduced our dataset. It could also be the case that Lasso and Elastic-net, of a high L1 ratio, often reduce a the dataset to a near-square matrix. **We can not be certian, and it could very-well be the case that thousands of features are important!** This is why the simulated data regression research from before is of importance. However all these values seam quite reasonable.
 
 We will ignore adaptive lasso for the rest of this analysis. However, if it were proved that adaptive lasso is superior for this favor of dataset, we would conclude that none of these features are important.
 
+```python
+print("Least Squares:  ", np.flip(np.argsort(np.abs(reg.coef_)))[0:10])
+```
+
 <pre>
+**Indices of Most Pronounces Features (Top 10)**
 Least Squares:   [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
 Ridge:           [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
 Elastic-net:     [ 6109 37495 37927 33641 21033 31091 14672 26977 12440 24248]
@@ -190,8 +196,82 @@ Lasso:           [ 1088  2994  6109 19489  1073  4294  2430 14672   963 11273]
 Adaptive Lasso:  [54674 18232 18230 18229 18228 18227 18226 18225 18224 18223]
 </pre>
 
-### Theory:
-Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix. 
+Above are the indices of the coefficients furthest from zero for each regression method. This is how we can gauge importance. We are not simply looking at the feature with the highest coefficients. We are looking at the features with the highest absolute coefficients. A strongly negative coefficient is just as interesting as a strongly positive one.
+
+We want to make sure that there is some agreement between the non-zero  coefficients of Elastic-net/Lasso and OLS/Ridge. We see such agreements, and are given some reassurances. For example, **feature 6109** is quite the popular kid.  If you look carefully feature 19489 is pretty popular as well. This is only the top 10 features, and more agreements can be seen further down, which is promising.
+
+<pre>
+**Coefficients of Most Pronounces Features (Top 10)**
+Least Squares:   [0.00105738 0.0009885  0.00098678 0.00096564 0.00096194]
+Ridge:           [0.00105738 0.0009885  0.00098678 0.00096564 0.00096194]
+Elastic-net:     [ 0.10230358  0.09811327 -0.08494173 -0.07735693  0.07471841]
+Lasso:           [-0.2157658   0.15476591  0.10656374  0.1061599  -0.09428705]
+Adaptive Lasso:  [0. 0. 0. 0. 0.]
+ </pre>
+
+Looking at the actual coefficients of at the aforementioned indices yields nothing relevant to the task at hand – find important features. However, it does highlight that Elastic-net/Lasso will have higher coefficient values in general than OLS/Ridge. This is because Elastic-net/Lasso reduces many coefficients to zero. The  fallen coefficients forfeit their minuscule value to the non-zero coefficients. Since many coefficients reduced to zero for our dataset, there is a lot of bulk added to these non-zero coefficients.
+
+[Insert Image]
+
+It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. I cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
+
+
+* **Yellow Lines: Least Squares Coefficients.** These are underplayed behind Ridge Regression. They are usually the same coefficients as Ridge Regression, and can be assumed to they extend up to the blue circles. I would ignore the yellow, mores a proof of concept.
+
+* **Blue Circles: Ridge Regression** As expected, ridge coefficients are generally lower than Elastic-net/Lasso. This is expected. We see see that some of the blue dots that are slightly higher vertically lie along a red line representing an important feature determined by Elastic-net. This shows agreement between Elastic-net and OLS/Ridge.
+
+* **Red Line: Elastic-net.** We make Elastic-net a vertical line to gauge which of the other regression methods lie along this line. For example, it is often the case that a green triangle, representing an important feature determined by Lasso feature, lies along a red line.This shows agreement between Elastic-net and OLS/Ridge. These features are of high interested, especially when pared with a vertically high blue circle.
+
+* **Yellow X: Top 100 Least Squares Coefficients.** This is essentially the same as the top 100 ridge coefficients. These further highlight the features determined to be most expressed by OLS/Ridge often lie along a red line. Notice the cluster of yellow X's on the far right? This is likely a cluster of genes of very high interested.
+
+Do not assume that green triangles or red lines that are vertically low are unimportant. We are reminded that these are the coefficients or Elastic-net/Lasso. So any non-zero value assigned to these is meaningful.
+
+After analyzing this plot using the hints I gave above, we are given several clues as to which clusters genes are of interest. Often genes near each other are expressed similarly, but this is not always the case. This makes sense, as there are stark drop offs in value. Good thing we did not shuffle our features, else less meaning would have been derived from our plot!
+
+### Elastic-net
+I wont go too much into Elastic-net here. We attempted to tune Elastic-net's ratio of L1 Ratio to give us a better RMSE. We recall that Lasso currently has the best RMSE, which was 1.1305735649223199. Can we do better?
+
+<p style="text-align: center;"><b>An L1:L2 of 0 is equivalent to <u>Ridge Regression</u></b></p>  
+<p style="text-align: center;"><b>An L1:L2 of 1 is equivalent to <u>Lasso Regression</u></b></p>  
+
+<pre>
+RMSE: 3.5163374649590673 (L1:L2 = 0.034482758620689655)
+RMSE: 2.8338760113650596 (L1:L2 = 0.06896551724137931)
+RMSE: 1.1235575582656006 (L1:L2 = 0.10344827586206896)
+RMSE: 0.5873934150599979 (L1:L2 = 0.13793103448275862)
+RMSE: 0.6441786314479849 (L1:L2 = 0.1724137931034483)
+RMSE: 0.6846116151307987 (L1:L2 = 0.20689655172413793)
+RMSE: 0.6699728751185436 (L1:L2 = 0.24137931034482757)
+RMSE: 0.6006756664969393 (L1:L2 = 0.27586206896551724)
+RMSE: 0.5859493228426489 (L1:L2 = 0.3103448275862069)
+RMSE: 0.5698992081887156 (L1:L2 = 0.3448275862068966)
+RMSE: 3.2574690030008173 (L1:L2 = 0.3793103448275862)
+RMSE: 3.3224806647229346 (L1:L2 = 0.41379310344827586)
+RMSE: 3.479474761163055 (L1:L2 = 0.4482758620689655)
+RMSE: 3.491777073883817 (L1:L2 = 0.48275862068965514)
+RMSE: 3.396822316911489 (L1:L2 = 0.5172413793103449)
+RMSE: 3.6073965244254746 (L1:L2 = 0.5517241379310345)
+RMSE: 3.5525289786552747 (L1:L2 = 0.5862068965517241)
+RMSE: 3.46673012913839 (L1:L2 = 0.6206896551724138)
+RMSE: 3.411219507492822 (L1:L2 = 0.6551724137931034)
+RMSE: 3.515575874650824 (L1:L2 = 0.6896551724137931)
+RMSE: 3.63039211732 (L1:L2 = 0.7241379310344828)
+RMSE: 3.693375500656383 (L1:L2 = 0.7586206896551724)
+RMSE: 3.7433893327184555 (L1:L2 = 0.7931034482758621)
+RMSE: 3.6945716899512795 (L1:L2 = 0.8275862068965517)
+RMSE: 3.7377677035416332 (L1:L2 = 0.8620689655172413)
+RMSE: 3.790682198515245 (L1:L2 = 0.896551724137931)
+RMSE: 3.903979072091087 (L1:L2 = 0.9310344827586207)
+RMSE: 1.1095760217965567 (L1:L2 = 0.9655172413793103)
+ </pre>
+
+[Insert Image]
+
+Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 rations of 0.13 and 0.37. 
+
+[Insert Image]
+
+We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweat spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
 
 # 6. Conclusion
 
