@@ -159,6 +159,7 @@ This dataset had 362 times as many features as samples. When dealing with high-d
 
 Our simulated data showed that performance of even lasso begins to decline once features exceed four times the number of samples. However, I believe this depends on a lot of things like the covariance and number of important features in a dataset. 
 
+**RMSE of Various Regression Methods:**
 <pre>
 Least Squares RMSE: 1.6305999856398685
 Ridge RMSE: 1.6305999856398685
@@ -170,8 +171,9 @@ Guess Mean RMSE: 1.950980339219909
 </pre>
 
 In a somewhat immature way – we fire every regression methods we've got at this dataset. What was most critical to us is that the RMSE of a regression method is less than a naive guess of the mean of y. If out a regression methods RMSE is near or above a naive guess of the mean of y, then it is the case that a random toddler guessing would yield more meaningful results. We see that Lasso and Elastic-net show great promise, while OLS and Ridge are at-least reasonable.
+
+**Number of Non-zero Coefficients:**
 <pre>
-**Number of Non-zero Coefficients**
 Important Features Least Squares:   54675  
 Important Features Ridge:           54675  
 Important Features Elastic-net:     195  
@@ -187,8 +189,8 @@ We will ignore adaptive lasso for the rest of this analysis. However, if it were
 print("Least Squares:  ", np.flip(np.argsort(np.abs(reg.coef_)))[0:10])
 ```
 
+**Indices of Most Pronounces Features (Top 10):**
 <pre>
-**Indices of Most Pronounces Features (Top 10)**
 Least Squares:   [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
 Ridge:           [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
 Elastic-net:     [ 6109 37495 37927 33641 21033 31091 14672 26977 12440 24248]
@@ -200,8 +202,8 @@ Above are the indices of the coefficients furthest from zero for each regression
 
 We want to make sure that there is some agreement between the non-zero  coefficients of Elastic-net/Lasso and OLS/Ridge. We see such agreements, and are given some reassurances. For example, **feature 6109** is quite the popular kid.  If you look carefully feature 19489 is pretty popular as well. This is only the top 10 features, and more agreements can be seen further down, which is promising.
 
+**Coefficients of Most Pronounces Features (Top 10):**
 <pre>
-**Coefficients of Most Pronounces Features (Top 10)**
 Least Squares:   [0.00105738 0.0009885  0.00098678 0.00096564 0.00096194]
 Ridge:           [0.00105738 0.0009885  0.00098678 0.00096564 0.00096194]
 Elastic-net:     [ 0.10230358  0.09811327 -0.08494173 -0.07735693  0.07471841]
@@ -269,15 +271,49 @@ RMSE: 1.1095760217965567 (L1:L2 = 0.9655172413793103)
 
 |![alt-text-10](elastic_rmse.png "title-1")|
 |:--:|
-|*Fig 19. 1|
+|*Fig 10. 1|
 
-Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 rations of 0.13 and 0.37. 
+Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 ratio of 0.13 and 0.37. We will refer to this as the **rift of prosperity**.
 
 |![alt-text-11](elastic_importance.png "title-1")|
 |:--:|
 |*Fig 11. 1|
 
 We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweet spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
+
+Let's get a zoom-in of this rift of prosperity, this time running Elastic-net 100 times on new L1 ratio values between 0.13 and 0.37. We see these more granular and zoomed-in results below:
+
+|![alt-text-12](elastic_rmse2.png "title-1")|
+|:--:|
+|*Fig 12. 1|
+
+
+We reveal that the rift of prosperity has an abnormality. RMSE will shoot back up to pre-rift levels. This is concerting, because if we did not get test L1 ratios to a certian granularity it is indeed possible that this rift of prosperity could have gone unnoticed.
+
+|![alt-text-13](elastic_importance2.png "title-1")|
+|:--:|
+|*Fig 13. 1|
+
+Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of property. This is where I would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients then Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
+
+**Indices of Most Pronounces Features (Top 10):**
+<pre>
+Tunned Elastic-net: [ 1088  6109  2994 14672 19489  2553  2430 18668  4294 11331]
+</pre>
+
+**Number of Non-zero Coefficients:**
+<pre>
+Important Features Tuned Elastic-net: 300
+</pre>
+
+If we take a step back and review the tuned Elastic-net results relative the the earlier results we can make a few conclusions. Given the low and consistent RMSE of elastic-net within the rift of prosperity, we can be given some confidents that these coefficients are trustworthy. Around 300 genes seem important. Some important genes are 1088, 6109, and 19489. Further analysis of clusters of important coefficients cane be determined by examining figure below similar to figure 10. These three conditions imply areas of interest: (1) features where there are clusters of many important features amongst neighboring features, (2) features where there is agreement between non-zero Elastic-net/Lasso coefficients and high OLS/Ridge coefficients, (3) added interest to the areas where the Tuned Elastic-net coefficients lie, and subtracted interest from areas where Elastic-net coefficients don't aline with Tuned Elastic-net coefficients.
+
+|![alt-text-13](real_data_regression2.png "title-1")|
+|:--:|
+|*Fig 13. 1|
+
+### Theory:
+Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix.
 
 # 6. Conclusion
 
