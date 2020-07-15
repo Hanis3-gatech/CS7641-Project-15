@@ -144,6 +144,55 @@ The whole point of regression is to predict a coefficient for each feature, whic
 [Analysis Here...]
 
 
+
+### Real Data
+
+We attempted to reduce the dimensionality of an extremely high dimensional dataset via PCA – now it's regressions turn.
+<pre>
+Has Null: False
+Dim of Whole Dataset: (151, 54677)
+Dims of X: (151, 54675)
+Dims of y: (151,)
+</pre>
+
+This dataset had 362 times as many features as samples. When dealing with high-dimensional data Lasso flavored algorithms are out friend. It is unlikely that all 54677 of these features contribute to the response variable in some way. It would be helpful to reduce many of the coefficients that have no effect on the response variable to zero. Lasso does just that!
+
+Our simulated data showed that performance of even lasso begins to decline once features exceed four times the number of samples. However, I believe this depends on a lot of things like the covariance and number of important features in a dataset. 
+
+<pre>
+Least Squares RMSE: 1.6305999856398685
+Ridge RMSE: 1.6305999856398685
+Elastic RMSE: 3.503569676558001 ← Check this
+Lasso RMSE: 1.1305735649223199
+Adaptive RMSE: 3.0044117670893855
+Guess Zeros RMSE: 3.0044117670893855
+Guess Mean RMSE: 1.950980339219909
+</pre>
+
+In a most naive way – we run all the regression methods we've got at this dataset. What was most critical to us is that the RMSE of a regression method is less than a naive guess of the mean of y. If out a regression methods RMSE is near a naive guess of the mean of y, then it is the case that essentially random guessing would yield more meaningful results. We see that Lasso and Elastic-net show great promise, while OLS and Ridge are at least reasonable.
+<pre>
+Important Features Least Squares:   54675  
+Important Features Ridge:           54675  
+Important Features Elastic-net:     195  
+Important Features Lasso:           253  
+Important Features Adaptive Lasso:  0  
+</pre>
+
+What is important to us is the feature reduction. Below is a raw count of the non-zeros coefficients after running each regression method. So, these features can be thought of as important. We know that Ridge Regression and Least Squares will indeed not produce any zero'd coefficients, but we included these values to emphasize that point. Elastic-net and Adaptive Lasso are reasonably near the number of features to-which PCA reduced our dataset. It could also be the case that Lasso and Elastic-net, of low L1:L2, often reduce a the dataset to a near-square matrix. **We can not be certian, and it could very-well be the case that thousands of features are important!** This is why the simulated data regression research from before is of importance. However all these values seam quite reasonable.
+
+We will ignore adaptive lasso for the rest of this analysis. However, if it were proved that adaptive lasso is superior for this favor of dataset, we would conclude that none of these features are important.
+
+<pre>
+Least Squares:   [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
+Ridge:           [ 6109 54671 54659 54624 54650 54623 54655 19489 21033 54670]
+Elastic-net:     [ 6109 37495 37927 33641 21033 31091 14672 26977 12440 24248]
+Lasso:           [ 1088  2994  6109 19489  1073  4294  2430 14672   963 11273]
+Adaptive Lasso:  [54674 18232 18230 18229 18228 18227 18226 18225 18224 18223]
+</pre>
+
+### Theory:
+Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix. 
+
 # 6. Conclusion
 
 # References 
