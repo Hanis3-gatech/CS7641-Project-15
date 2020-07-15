@@ -277,7 +277,7 @@ Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is q
 |:--:|
 |*Fig 11. 1|
 
-We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweat spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
+We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweet spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
 
 # 6. Conclusion
 
