@@ -144,4 +144,6 @@ The whole point of regression is to predict a coefficient for each feature, whic
 [Analysis Here...]
 
 
-# 6. Model Evaluation
+# 6. Conclusion
+
+# References 
