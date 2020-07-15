@@ -2,7 +2,7 @@
 ### Bilal Mufti, Hira Anis, James Matthew Hamilton, Noor-us-Saba Khan, Shakir Shakoor Khatti
 
 # 1. Problem Statement
-In real world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is in the order of 500. In such situations, the traditional regression techniques fail to produce beneficial results exhibiting decreasing accuracy with increasing features to datapoint ratio. This shortcoming of regression models leads to research constraints in this and other concerned fields. 
+In real world scenarios, especially in the field of bioinformatics and genomics, we frequently encounter datasets with a lot more features than samples such that the ratio of features to data points is in the order of 500. In such situations, the traditional machine learning techniques fail to produce beneficial results exhibiting decreasing accuracy with increasing features to datapoint ratio. This shortcoming of models leads to research constraints in concerned fields. 
 # 2. Introduction
 In this project a data set with higher number of features and fewer samples is chosen to test dimensionality reduction algorithms both using unsupervised and supervised learning techniques. Principal component analysis is used in the unsupervised models to perform the dimensionality reduction and different regression techniques are employed in supervised learning to compare the results and effectiveness of each regression technique in reducing the number of features.    
 # 3. Data Set & Basic Idea
