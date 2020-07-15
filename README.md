@@ -64,11 +64,6 @@ After doing unsupervised learning analysis using PCA, it was observed from the R
 
 
 
-
-
-
-
-
 # 5. Supervised Machine Learning
 Supervised learning looks at both an independent (X) and dependent (y) variable, where we attempt to build some model using the given data in X to predict the values in y. Unsupervised learning only looks at and independent variable (X) and seeks to derive some meaning from this dataset alone. We will limit our focus to the subset of supervised learning known as **regression analysis** here.
 
@@ -117,36 +112,6 @@ The whole point of regression is to predict a coefficient for each feature, whic
 #### 5. **Adaptive Lasso & Random Lasso → Slightly More 0's than Lasso**
   - These are what we researched. More on them later.
   
-[Insert Image of RMSE on Low Dim Data...]
-  
-|![alt-text-5](RME_Feature_to_Samples.png "title-1")|
-|:--:|
-|*Fig 5. 1|
-
-[Analysis Here...]
-
-|![alt-text-6](F1_Feature_to_Samples.png "title-1")|
-|:--:|
-|*Fig 6. 1|
-
-[Analysis Here...]
-
-|![alt-text-7](Runtime_Feature_to_Samples.png "title-1")|
-|:--:|
-|*Fig 7. 1|
-
-[Analysis Here...]
-
-|![alt-text-8](RME_Constant.png "title-1")|
-|:--:|
-|*Fig 8. 1|
-
-[Analysis Here...]
-
-
-
-### Real Data
-
 We attempted to reduce the dimensionality of an extremely high dimensional dataset via PCA – now it's regressions turn.
 <pre>
 Has Null: False
@@ -166,7 +131,6 @@ Ridge RMSE: 1.6305999856398685
 Elastic RMSE: 3.503569676558001
 Lasso RMSE: 1.1305735649223199
 Adaptive RMSE: 3.0044117670893855
-Guess Zeros RMSE: 3.0044117670893855
 Guess Mean RMSE: 1.950980339219909
 </pre>
 
@@ -312,9 +276,89 @@ If we take a step back and review the tuned Elastic-net results relative the the
 |:--:|
 |*Fig 13. 1|
 
-### Theory:
-Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix.
 
-# 6. Conclusion
+Despite all this, the RMSE I have been showing you is not cross validated. Indeed the hyper-parameters and L1 ratio were tuned with cross validation, but the RMSE's displayed were of the tuned coefficients run on the entire dataset. Thus our efforts were in vain, as our model was overfit and not generalized. We can see this in the 5-fold cross validation results seen below. Even a toddlers best guess towards our best machine learning analysis.
+
+**RMSE of Various Regression Methods 5-Fold Cross Validated:**
+<pre>
+Least Squares RMSE: 3.4502048324666648
+Ridge RMSE: 3.4416252341291256
+Elastic-net: 3.4344142826069364
+Tuned Elastic-net: 3.4222322540949164
+Lasso RMSE: 3.4462434974886746
+Adaptive RMSE: 3.1428682500373477
+Guess Zeros RMSE: 3.0044117670893855
+Guess Mean RMSE: 1.950980339219909
+</pre>
+
+What is this? The **neglected and ignored Adaptive Lasso** makes quite a comeback. Simply guessing that all coefficients unrelated, i.e. zero, may indeed have been the correct answer given this flavor of data.
+
+The methods I gave above for analysis are still valid and recommended, but only if observing the cross validated results.
+
+Thus, our little story on the curse of dimensionality holds true. We indeed can not derive any meaning from this dataset. The dimensionality is too high. But when is dimensionality too high? **I will now present results on thousands of simulated datasets, so that researchers will never have to cope with such issues again.** We created a robust and scalable function that analyzes different shapes and flavors of data in a beautiful attempt to derive a set of rules as to when and where the effectiveness of regression methods degrade.
+
+### Simulated Data
+
+We will present and analyze the results of thousands of simulated datasets. Simulated datasets give us much more control, and is the only way to obtain **The Real Ground Truth of Regression.**
+
+#### Linear Regression | The Real Ground Truth
+Note, here weights and coefficients mean the same thing.
+
+When we think of the "ground truth" for linear regression problems we think of  y-actual. There is in-fact a better ground truth! If one somehow knew the true values of the coefficients, then that would be an even better ground truth, i.e. coefficients-actual. It is indeed possible for y-actual and y-predicted
+to be near to one another and still have come up with the wrong answer, e.g. overfitting. If we rethink overfitting, we could describe it as when coefficients-actual is far from coefficients-predicted, but we were able to guess a y-predicted close to the y-actual.
+
+Alas, in real life with real data it is impossible to ever have the ground truth for coefficients (weights). And if we did have the coefficients (weights), why would we even need to make a regression model.
+
+There is one way we can get the ground truth for coefficients, by simulating data artificially. This is the only way to ever be 100% certian of a datasets coefficients. 
+
+**Question:** Why would this be useful to do though?
+**Answer:** To robustly test the performance of a new regression algorithm against existing regression algorithms.
+
+Sure, we can use k-fold cross validation to test, but that is never perfect. If we were given the ground truth for coefficients (weights) we would not even need to do k-fold cross validation. We could simply get the RMSE of the weights-predicted against the weights-actual. We no longer need to worry about overfitting, as we have a perfect indicator of accuracy.
+
+This is even better than 5-fold cross validation for the testing of algorithms. Additionally with data we can test all sorts of dimensionality, e.g. 100x5, 100x50, 100x500, 100x5000, and be absolutely certian of the answers. This is never the case with real data.
+
+Even worse – with very-very high dimensionality data we may never know, even remotely, what the real coefficients are! Genetic data is an example of this. Only a few genes could be important, meaning that only a few genes would have non-zero coefficients. The 5-fold cross validation method becomes almost meaningless for very-very high dimensionality data. We become more interested in the question of "what are the non-zero coefficients" so we can know "what genes are important". Regression algorithms, like Lasso, become unreliable at very-very high dimensionality. Lasso will essentially guess of a handful of important (non-zero) coefficients/genes, but we can never be certian it is correct.
+
+With simulated data we unlock that capability to test if a regression algorithm can actually predict the important features/coefficients in challengingly high-dimensional data. Simulated data is the only way we can gain certainty as-to a regression algorithms performance.
+
+### New Theory:
+**Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix. It is not so much that case that features being greater than samples is an issue, but more-so the case that important features being greater than samples is an issue.**
+
+Now, let's test this. **Let's throw every permutation of data that we can generate at our regression methods in an attempt to derive meaning.**
+
+Again we created robust and scalable functions that make the testing of thousands of flavors of data easy. Let's go through these results.
+
+[Insert Image of RMSE on Low Dim Data...]
+  
+|![alt-text-5](RME_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 5. 1|
+
+[Analysis Here...]
+
+|![alt-text-6](F1_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 6. 1|
+
+[Analysis Here...]
+
+|![alt-text-7](Runtime_Feature_to_Samples.png "title-1")|
+|:--:|
+|*Fig 7. 1|
+
+[Analysis Here...]
+
+|![alt-text-8](RME_Constant.png "title-1")|
+|:--:|
+|*Fig 8. 1|
+
+[Analysis Here...]
+
+
+### Random Lasso
+
+Random Lasso shows great promise in dealing with extreme high dimensional data. However, a stable Random Lasso does not exist in practice. We were never able to implement a stable release of Random Lasso in Python. However, the author James Matthew Hamilton has **a stable release of Random Lasso that outperforms all other regression methods consistently but marginally in terms of RMSE on simulated data**. There are many flavors of Random Lasso, the one we attempted to implement is called HiLasso. The author James Matthew Hamilton will continue to work on unlocking Random Lasso's potential outside the scope of this project.
+
 
 # References 
