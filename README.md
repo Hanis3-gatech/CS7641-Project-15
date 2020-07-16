@@ -84,11 +84,11 @@ Alas, it does not benefit us to look at more features, despite the impression th
 <p style="text-align: center;">Features >> Samples</p>  
 <p style="text-align: center;">D >> N</p>  
 
-But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here, but first we must discuss...
+But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here, but first we must discuss.
 
 ### Dimension Reduction
 
-Some of the features in a dataset may not be meaningful in anyway. Our goal is to eliminate these. By reducing the number of features we will essentially have more data; as discussed above. We discussed PCA, which uses a slightly different flavor or a goal. Indeed PCA reduces dimensionally, but **PCA is does not even look at the response variable y**. In general PCA will not help any model perform better in terms of accuracy, and we saw this above. This is because PCA treats the features with low variance as unimportant, and the features with high variance as important. It can be such that these high variance features have nothing to do with the response variable. It can be such that these low variance features have something to do with the response variable.**Alas, we can use regression for dimension reduction, which will take into consideration the response variable!**
+Some of the features in a dataset may not be meaningful in anyway. Our goal is to eliminate these. By reducing the number of features we will essentially have more data; as discussed above. We discussed PCA, which uses a slightly different flavor or a goal. Indeed PCA reduces dimensionally, but **PCA does not even look at the response variable y**. In general PCA will not help any model perform better in terms of accuracy, and we saw this above. This is because PCA treats the features with low variance as unimportant, and the features with high variance as important. It can be such that these high variance features have nothing to do with the response variable. It can be such that these low variance features have something to do with the response variable.**Alas, we can use regression for dimension reduction, which will take into consideration the response variable!**
 
 The whole point of regression is to predict a coefficient for each feature, which can be used as a model, a formula, to predict y. There are a handful of beautiful regression techniques that researchers have at their disposal:
 
@@ -120,8 +120,8 @@ Dims of X: (151, 54675)
 Dims of y: (151,)
 </pre>
 
-This dataset had 362 times as many features as samples. When dealing with high-dimensional data Lasso flavored algorithms are out friend. It is unlikely that all 54677 of these features contribute to the response variable in some way. It would be helpful to reduce many of the coefficients that have no effect on the response variable to zero. Lasso does just that!
-
+This dataset had 362 times as many features as samples. When dealing with high-dimensional data Lasso flavored algorithms are our friend. It is unlikely that all 54677 of these features contribute to the response variable in some way. It would be helpful to reduce many of the coefficients that have no effect on the response variable to zero. Lasso does just that!  
+  
 Our simulated data showed that performance of even lasso begins to decline once features exceed four times the number of samples. However, I believe this depends on a lot of things like the covariance and number of important features in a dataset. 
 
 **RMSE of Various Regression Methods:**
