@@ -57,7 +57,7 @@ Ridge regression was then used for training and testing. Since ridge regression 
 When Lasso Regression was carried out on the pca applied dataset, expectedly the results improved as shown below in the RMSE value. Also, 10-fold cross validation was carried out to determine the optimal value of regularization parameter (λ)
 
 RMSE Lasso Regression: 2.4187641419349832  
-Best λ: 50
+**Best λ: 50**
 
 After doing unsupervised learning analysis using PCA, it was observed from the RMSE values obtained after applying regression techniques on dimensionally reduced data that PCA is not the most accurate technique to handle the dataset with D > > > >N. . For furthur analysis on this issue, supervised learning algorithms will be applied for both dimensionality reduction and label prediction. Least square, Ridge, Elastic Net, Lasso, Adaptive Lasso and a novel "Random Lasso" techniques would be used and results will be discussed to compare unsupervised and supervised machine learning performance.
 
@@ -84,18 +84,18 @@ Alas, it does not benefit us to look at more features, despite the impression th
 <p style="text-align: center;">Features >> Samples</p>  
 <p style="text-align: center;">D >> N</p>  
 
-But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analysis this here, but first we must discuss.
+But at what point does it the ratio of features to samples become so high that we cannot derive meaning? We analyse this here, but first we must discuss.
 
 ### Dimension Reduction
 
-Some of the features in a dataset may not be meaningful in anyway. Our goal is to eliminate these. By reducing the number of features we will essentially have more data; as discussed above. We discussed PCA, which uses a slightly different flavor or a goal. Indeed PCA reduces dimensionally, but **PCA does not even look at the response variable y**. In general PCA will not help any model perform better in terms of accuracy, and we saw this above. This is because PCA treats the features with low variance as unimportant, and the features with high variance as important. It can be such that these high variance features have nothing to do with the response variable. It can be such that these low variance features have something to do with the response variable.**Alas, we can use regression for dimension reduction, which will take into consideration the response variable!**
+Some of the features in a dataset may not be meaningful in anyway. Our goal is to eliminate those. By reducing the number of features, we will essentially have more data; as discussed above. We discussed PCA, which uses a slightly different flavor or a goal. Indeed PCA reduces dimensionality, but **PCA does not even look at the response variable y**. In general PCA will not help any model perform better in terms of accuracy, and we saw this above. This is because PCA treats the features with low variance as unimportant, and the features with high variance as important. It can be such that these high variance features have nothing to do with the response variable. It can be such that these low variance features have something to do with the response variable.**Alas, we can use regression for dimension reduction, which will take into consideration the response variable!**
 
-The whole point of regression is to predict a coefficient for each feature, which can be used as a model, a formula, to predict y. There are a handful of beautiful regression techniques that researchers have at their disposal:
+The whole point of regression is to predict a coefficient for each feature, which can be used as a model, a formula, to predict y. There are a handful of efficient regression techniques that researchers have at their disposal:
 
 #### 1. **Ordinary Least Squares → No 0's**
   - Creates the most optimal line of best fit.
   - All coefficients predicted are non-zero.
-  - I will show you results later that show the below *'advanced'* regression methods outperforming Ordinary Least Squares. Counterintuitively, this is actually the best regression method. No other regression method can ever be able to hope to outperform this. If you understand this you truly understand regression.
+  - We will show you results later that show the below *'advanced'* regression methods outperforming Ordinary Least Squares. Counterintuitively, this is actually the best regression method. No other regression method can ever be able to hope to outperform this. If you understand this you truly understand regression.
 
 #### 2. **Ridge Regression → No 0's**
   - Similar to Ordinary Least Squares, but introduces a tunable variable λ that improves accuracy in exchange for a small amount for bias.
@@ -106,13 +106,13 @@ The whole point of regression is to predict a coefficient for each feature, whic
   -The difference is that Lasso shrink coefficients that have little to do with the response variable down to 0. _(Is this what we are looking for?)_
 
 #### 4. **Elastic-Net → Some 0's**
-  - This is a hybrid between Ridge Regression and Lasso. So why didn't I put it in the middle of Ridge Regression and Lasso? Chronologically, it was invented later and uses both ridge and lasso.
-  - It even has two λ's, which is pretty neat. If either λ_1 or λ_2  are zero, then the Elastic-Net would become either Lasso or Ridge Regression.
+  - This is a hybrid between Ridge Regression and Lasso. So why didn't we put it in the middle of Ridge Regression and Lasso? Chronologically, it was invented later and uses both ridge and lasso.
+  - It also has two λ's, which is pretty neat. If either λ_1 or λ_2  are zero, then the Elastic-Net would become either Lasso or Ridge Regression.
 
 #### 5. **Adaptive Lasso & Random Lasso → Slightly More 0's than Lasso**
   - These are what we researched. More on them later.
   
-We attempted to reduce the dimensionality of an extremely high dimensional dataset via PCA – now it's regressions turn.
+We attempted to reduce the dimensionality of an extremely high dimensional dataset via PCA – now it's regression's turn.
 <pre>
 Has Null: False
 Dim of Whole Dataset: (151, 54677)
@@ -122,7 +122,7 @@ Dims of y: (151,)
 
 This dataset had 362 times as many features as samples. When dealing with high-dimensional data Lasso flavored algorithms are our friend. It is unlikely that all 54677 of these features contribute to the response variable in some way. It would be helpful to reduce many of the coefficients that have no effect on the response variable to zero. Lasso does just that!  
   
-Our simulated data showed that performance of even lasso begins to decline once features exceed four times the number of samples. However, I believe this depends on a lot of things like the covariance and number of important features in a dataset. 
+Our simulated data showed that performance of even lasso begins to decline once features exceed four times the number of samples. However, we believe this depends on a lot of things like the covariance and number of important features in a dataset. 
 
 **RMSE of Various Regression Methods:**
 <pre>
@@ -162,7 +162,7 @@ Lasso:           [ 1088  2994  6109 19489  1073  4294  2430 14672   963 11273]
 Adaptive Lasso:  [54674 18232 18230 18229 18228 18227 18226 18225 18224 18223]
 </pre>
 
-Above are the indices of the coefficients furthest from zero for each regression method. This is how we can gauge importance. We are not simply looking at the feature with the highest coefficients. We are looking at the features with the highest absolute coefficients. A strongly negative coefficient is just as interesting as a strongly positive one.
+Mentioned above are the indices of the coefficients furthest from zero for each regression method. This is how we can gauge importance. We are not simply looking at the feature with the highest coefficients. We are looking at the features with the highest absolute coefficients. A strongly negative coefficient is just as interesting as a strongly positive one.
 
 We want to make sure that there is some agreement between the non-zero  coefficients of Elastic-net/Lasso and OLS/Ridge. We see such agreements, and are given some reassurances. For example, **feature 6109** is quite the popular kid.  If you look carefully feature 19489 is pretty popular as well. This is only the top 10 features, and more agreements can be seen further down, which is promising.
 
@@ -181,10 +181,10 @@ Looking at the actual coefficients of the aforementioned indices yields nothing 
 |:--:|
 |*Fig 5*|
 
-It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. I cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
+It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. We cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
 
 
-* **Yellow Lines: Least Squares Coefficients.** These are underplayed behind Ridge Regression. They are usually the same coefficients as Ridge Regression, and can be assumed to they extend up to the blue circles. I would ignore the yellow, mores a proof of concept.
+* **Yellow Lines: Least Squares Coefficients.** These are underplayed behind Ridge Regression. They are usually the same coefficients as Ridge Regression, and can be assumed to they extend up to the blue circles. We would ignore the yellow, mores a proof of concept.
 
 * **Blue Circles: Ridge Regression** As expected, ridge coefficients are generally lower than Elastic-net/Lasso. This is expected. We see that some of the blue dots that are slightly higher vertically lie along a red line representing an important feature determined by Elastic-net. This shows agreement between Elastic-net and OLS/Ridge.
 
@@ -194,7 +194,7 @@ It was difficult to put this much information into one plot. This is essentially
 
 Do not assume that green triangles or red lines that are vertically low are unimportant. We are reminded that these are the coefficients or Elastic-net/Lasso. So any non-zero value assigned to these is meaningful.
 
-After analyzing this plot using the hints I gave above, we are given several clues as to which clusters genes are of interest. Often genes near each other are expressed similarly, but this is not always the case. This makes sense, as there are stark drop offs in value. Good thing we did not shuffle our features, else less meaning would have been derived from our plot!
+After analyzing this plot using the hints we gave above, we are given several clues as to which clusters genes are of interest. Often genes near each other are expressed similarly, but this is not always the case. This makes sense, as there are stark drop offs in value. Good thing we did not shuffle our features, else less meaning would have been derived from our plot!
 
 ### Elastic-net
 We attempted to tune Elastic-net's ratio of L1 Ratio to give us a better RMSE. We recall that Lasso currently has the best RMSE, which was 1.1305735649223199. Can we do better?
@@ -258,7 +258,7 @@ We reveal that the rift of prosperity has an abnormality. RMSE will shoot back u
 |:--:|
 |*Fig 9*|
 
-Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of property. This is where I would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients then Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
+Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of property. This is where Iwe would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients then Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
 
 **Indices of Most Pronounces Features (Top 10):**
 <pre>
@@ -277,7 +277,7 @@ If we take a step back and review the tuned Elastic-net results relative the the
 |*Fig 10*|
 
 
-Despite all this, the RMSE I have been showing you is not cross validated. Indeed the hyper-parameters and L1 ratio were tuned with cross validation, but the RMSE's displayed were of the tuned coefficients run on the entire dataset. Thus our efforts were in vain, as our model was overfit and not generalized. We can see this in the 5-fold cross validation results seen below. Even a toddlers best guess towards our best machine learning analysis.
+Despite all this, the RMSE That we have been showing you is not cross validated. Indeed the hyper-parameters and L1 ratio were tuned with cross validation, but the RMSE's displayed were of the tuned coefficients run on the entire dataset. Thus our efforts were in vain, as our model was overfit and not generalized. We can see this in the 5-fold cross validation results seen below. Even a toddlers best guess towards our best machine learning analysis.
 
 **RMSE of Various Regression Methods 5-Fold Cross Validated:**
 <pre>
@@ -293,9 +293,9 @@ Guess Mean RMSE: 1.950980339219909
 
 What is this? The **neglected and ignored Adaptive Lasso** makes quite a comeback. Simply guessing that all coefficients unrelated, i.e. zero, may indeed have been the correct answer given this flavor of data.
 
-The methods I gave above for analysis are still valid and recommended, but only if observing the cross validated results.
+The methods we gave above for analysis are still valid and recommended, but only if observing the cross validated results.
 
-Thus, our little story on the curse of dimensionality holds true. We indeed can not derive any meaning from this dataset. The dimensionality is too high. But when is dimensionality too high? **I will now present results on thousands of simulated datasets, so that researchers will never have to cope with such issues again.** We created a robust and scalable function that analyzes different shapes and flavors of data in a beautiful attempt to derive a set of rules as to when and where the effectiveness of regression methods degrade.
+Thus, our little story on the curse of dimensionality holds true. We indeed can not derive any meaning from this dataset. The dimensionality is too high. But when is dimensionality too high? **We will now present results on thousands of simulated datasets, so that researchers will never have to cope with such issues again.** We created a robust and scalable function that analyzes different shapes and flavors of data in a beautiful attempt to derive a set of rules as to when and where the effectiveness of regression methods degrade.
 
 ### Simulated Data
 
@@ -377,7 +377,7 @@ If we change the ratio if features to samples to 10:1 we see drastically more un
 
 ### Random Lasso
 
-Random Lasso shows great promise in dealing with extreme high dimensional data. However, a stable Random Lasso does not exist in practice. We were never able to implement a stable release of Random Lasso in Python. However, the author James Matthew Hamilton has **a stable release of Random Lasso that outperforms all other regression methods consistently but marginally in terms of RMSE on simulated data**. There are many flavors of Random Lasso, the one we attempted to implement is called HiLasso. The author James Matthew Hamilton will continue to work on unlocking Random Lasso's potential outside the scope of this project.
+Random Lasso shows great promise in dealing with extreme high dimensional data. However, a stable Random Lasso does not exist in practice. We were never able to implement a stable release of Random Lasso in Python.James Matthew Hamilton has **a stable release of Random Lasso that outperforms all other regression methods consistently but marginally in terms of RMSE on simulated data**. There are many flavors of Random Lasso, the one we attempted to implement is called HiLasso. The author will continue to work on unlocking Random Lasso's potential outside the scope of this project.
 
 Random lasso forces samples to be equal to features in a bootstrapping process. It capitalized on some of the properties displayed in the simulated performance testing – manly that when samples is equal to features there is always some strong performance in Lasso flavored algorithms.
 
