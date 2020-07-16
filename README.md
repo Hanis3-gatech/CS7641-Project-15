@@ -179,7 +179,7 @@ Looking at the actual coefficients of at the aforementioned indices yields nothi
 
 |![alt-text-9](real_data_regression.png "title-1")|
 |:--:|
-|*Fig 9. 1|
+|*Fig 5|
 
 It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. I cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
 
@@ -235,13 +235,13 @@ RMSE: 1.1095760217965567 (L1:L2 = 0.9655172413793103)
 
 |![alt-text-10](elastic_rmse.png "title-1")|
 |:--:|
-|*Fig 10. 1|
+|*Fig 6|
 
 Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 ratio of 0.13 and 0.37. We will refer to this as the **rift of prosperity**.
 
 |![alt-text-11](elastic_importance.png "title-1")|
 |:--:|
-|*Fig 11. 1|
+|*Fig 7|
 
 We see that as Elastic-net approaches 1, more-and-more features are reduced to zero. This behavior is expected, though it seems a sweet spot is achieved between 300 and 400 features, as this is the area where RMSE was drastically reduced.
 
@@ -249,14 +249,14 @@ Let's get a zoom-in of this rift of prosperity, this time running Elastic-net 10
 
 |![alt-text-12](elastic_rmse2.png "title-1")|
 |:--:|
-|*Fig 12. 1|
+|*Fig 8|
 
 
 We reveal that the rift of prosperity has an abnormality. RMSE will shoot back up to pre-rift levels. This is concerting, because if we did not get test L1 ratios to a certian granularity it is indeed possible that this rift of prosperity could have gone unnoticed.
 
 |![alt-text-13](elastic_importance2.png "title-1")|
 |:--:|
-|*Fig 13. 1|
+|*Fig 9|
 
 Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of property. This is where I would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients then Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
 
@@ -274,7 +274,7 @@ If we take a step back and review the tuned Elastic-net results relative the the
 
 |![alt-text-13](real_data_regression2.png "title-1")|
 |:--:|
-|*Fig 13. 1|
+|*Fig 10|
 
 
 Despite all this, the RMSE I have been showing you is not cross validated. Indeed the hyper-parameters and L1 ratio were tuned with cross validation, but the RMSE's displayed were of the tuned coefficients run on the entire dataset. Thus our efforts were in vain, as our model was overfit and not generalized. We can see this in the 5-fold cross validation results seen below. Even a toddlers best guess towards our best machine learning analysis.
@@ -330,50 +330,50 @@ Again we created robust and scalable functions that make the testing of thousand
 
 |![alt-text-5](RME_Feature_to_Samples_S.png "title-1")|
 |:--:|
-|*Fig 5. 1|
+|*Fig 11|
 
 The simulated data above is of sparse coefficients where for every 100 features only 5 are informative. This remains constant. The plot displays the effect of increasing the ratio of features to samples. Least squares performs exceptionally well up until the features exceeds samples. After features exceeds samples, Lasso flavored algorithms will outperform. Once features exceeds samples by a 5:1 ratio Lasso becomes unstable and will slowly converge on the performance of other other regression methods.
 
 |![alt-text-20](F1_Feature_to_Samples_S.png "title-1")|
 |:--:|
-|*Fig 6. 1|
+|*Fig 12|
 
 For high dimensional data F1 becomes a helpful indicator of performance along with RMSE. We calculate F1 in the traditional way, but convert our coefficients to binaries where non-zero coefficients are false and zero's coefficients are true. F1 becomes more important than RMSE we care more about feature selection than the actual exact coefficient values. Of course, OLS/Ridge are not meant to be taken seriously as far as F1 scores. We see that Adaptive lasso remarkably better at feature selection than Lasso when the ratio of features to samples is between 2 and 5.
 
 |![alt-text-7](Runtime_Feature_to_Samples_S.png "title-1")|
 |:--:|
-|*Fig 7. 1|
+|*Fig 13|
 
 The runtime is seen here, and it is noteworthy that Lasso flavored algorithms take considerable longer, because of how sklearn handles them. 
 
 
 |![alt-text-8](RME_Constant.png "title-1")|
 |:--:|
-|*Fig 8. 1|
+|*Fig 14|
 
 If the ratio of features to samples to informative features remains constant to performance of all regression algorithms do not degrade.
 
 |![alt-text-10](RME_Informative.png "title-1")|
 |:--:|
-|*Fig 10. 1|
+|*Fig 15|
 
 Here we have a constant of 400 features and 400 samples – so this is a square dataset. We observe that occurs then the number of informative features increases. We see this has a drastic effect. When the ratio of informative features to features exceeds 1:2 we begin to see instability in the Lasso flavored algorithms.
 
 |![alt-text-11](F1_Informative.png "title-1")|
 |:--:|
-|*Fig 11. 1|
+|*Fig 16|
 
 For predicting important features the Lasso flavored algorithms perform strongly until the informative features begin to exceed the features. Remarkably the F1 is high throughout the entire plot, implying that mostly the RMSE degrades as this ratio of informative features to features increases. Another conclusion from this is that when samples is equal to features, the Lasso flavored algorithms have little problem with feature selection. It will just be the case that their coefficients are off.
 
 |![alt-text-12](RMSE_Informative2.png "title-1")|
 |:--:|
-|*Fig 12. 1|
+|*Fig 17|
 
 If we change the ratio if features to samples to 10:1 we see drastically more unstable performance as far as F1 and RMSE. The performance has degraded well once the number of important features exceeds the samples. From this we can reasonably suggest that it is hopeless to perform accurate regression analysis on datasets who's important features exceed samples – of course we may never know the important features.
 
 |![alt-text-13](F1_Informative2.png "title-1")|
 |:--:|
-|*Fig 13. 1|
+|*Fig 18|
 
 ### Random Lasso
 
