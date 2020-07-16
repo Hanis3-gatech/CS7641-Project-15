@@ -381,6 +381,9 @@ Random Lasso shows great promise in dealing with extreme high dimensional data. 
 
 Random lasso forces samples to be equal to features in a bootstrapping process. It capitalized on some of the properties displayed in the simulated performance testing – manly that when samples is equal to features there is always some strong performance in Lasso flavored algorithms.
 
+Random Lasso and Regression Analysis Toolset Repo:
+https://github.com/jamesmatthewhamilton/RandomLasso
+
 
 # References 
 [1] S.Wang, B.Nan, S.Rosset, and J.Zhu, "Random lasso," The annals of applied statistics, vol. 5, no. 1, p. 468, 2011. <br/>
