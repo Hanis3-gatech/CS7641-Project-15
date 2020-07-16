@@ -237,7 +237,7 @@ RMSE: 1.1095760217965567 (L1:L2 = 0.9655172413793103)
 |:--:|
 |*Fig 6*|
 
-Indeed we can improve upon the RMSE using a highly turned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 ratio of 0.13 and 0.37. We will refer to this as the **rift of prosperity**.
+Indeed we can improve upon the RMSE using a highly tuned Elastic-net. This is quite exciting. We observe a stark drop in RMSE between the L1 ratio of 0.13 and 0.37. We will refer to this as the **rift of prosperity**.
 
 |![alt-text-11](elastic_importance.png "title-1")|
 |:--:|
@@ -258,7 +258,7 @@ We reveal that the rift of prosperity has an abnormality. RMSE will shoot back u
 |:--:|
 |*Fig 9*|
 
-Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of property. This is where Iwe would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients then Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
+Again we see the number of important features declines as the L1 ratio increases. We note the steep drop in important features as we exit the rift of Prosperity. This is where Iwe would say our L1 ratio has become too Lasso-like. It just-so-happens that this for this dataset is this true: (1) for elastic-net the L1 ratios exceeding 0.36 produce more zero coefficients than Lasso, thus (2) these L1 ratios are more Lasso-like than Lasso itself. **It is perhaps the case that the rift of prosperity occurs when the L1 ratio is tuned in a way that the correct number of important features were revealed.** So these L1 ratios that are between 300 and 400 features show strong performance in RMSE. The best L1 ratio yielded exactly 300 important features.
 
 **Indices of Most Pronounces Features (Top 10):**
 <pre>
@@ -270,7 +270,7 @@ Tunned Elastic-net: [ 1088  6109  2994 14672 19489  2553  2430 18668  4294 11331
 Important Features Tuned Elastic-net: 300
 </pre>
 
-If we take a step back and review the tuned Elastic-net results relative the the earlier results we can make a few conclusions. Given the low and consistent RMSE of elastic-net within the rift of prosperity, we can be given some confidents that these coefficients are trustworthy. Around 300 genes seem important. Some important genes are 1088, 6109, and 19489. Further analysis of clusters of important coefficients cane be determined by examining figure below similar to figure 10. These three conditions imply areas of interest: (1) features where there are clusters of many important features amongst neighboring features, (2) features where there is agreement between non-zero Elastic-net/Lasso coefficients and high OLS/Ridge coefficients, (3) added interest to the areas where the Tuned Elastic-net coefficients lie, and subtracted interest from areas where Elastic-net coefficients don't aline with Tuned Elastic-net coefficients.
+If we take a step back and review the tuned Elastic-net results relative the the earlier results we can make a few conclusions. Given the low and consistent RMSE of elastic-net within the rift of prosperity, we can be given some confidence that these coefficients are trustworthy. Around 300 genes seem important. Some important genes are 1088, 6109, and 19489. Further analysis of clusters of important coefficients can be determined by examining figure below similar to figure 10. These three conditions imply areas of interest: (1) features where there are clusters of many important features amongst neighboring features, (2) features where there is agreement between non-zero Elastic-net/Lasso coefficients and high OLS/Ridge coefficients, (3) added interest to the areas where the Tuned Elastic-net coefficients lie, and subtracted interest from areas where Elastic-net coefficients don't align with Tuned Elastic-net coefficients.
 
 |![alt-text-13](real_data_regression2.png "title-1")|
 |:--:|
@@ -322,7 +322,7 @@ Even worse – with very-very high dimensionality data we may never know, even r
 With simulated data we unlock that capability to test if a regression algorithm can actually predict the important features/coefficients in challengingly high-dimensional data. Simulated data is the only way we can gain certainty as-to a regression algorithms performance.
 
 ### New Theory:
-**Perhaps it is the case that so long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix. It is not so much that case that features being greater than samples is an issue, but more-so the case that important features being greater than samples is an issue.**
+**Perhaps it is the case that as long as the number of important features remains below the number of samples we have some hope of discovering them, no mater the dimensionality of a matrix. It is not so much the case that features being greater than samples is an issue, but more-so the case that important features being greater than samples is an issue.**
 
 Now, let's test this. **Let's throw every permutation of data that we can generate at our regression methods in an attempt to derive meaning.**
 
@@ -369,7 +369,7 @@ For predicting important features the Lasso flavored algorithms perform strongly
 |:--:|
 |*Fig 17*|
 
-If we change the ratio if features to samples to 10:1 we see drastically more unstable performance as far as F1 and RMSE. The performance has degraded well once the number of important features exceeds the samples. From this we can reasonably suggest that it is hopeless to perform accurate regression analysis on datasets who's important features exceed samples – of course we may never know the important features.
+If we change the ratio if features to samples to 10:1 we see drastically more unstable performance as far as F1 and RMSE. The performance has degraded well once the number of important features exceeds the samples. From this we can reasonably suggest that it is hopeless to perform accurate regression analysis on datasets whose important features exceed samples – of course we may never know the important features.
 
 |![alt-text-13](F1_Informative2.png "title-1")|
 |:--:|
