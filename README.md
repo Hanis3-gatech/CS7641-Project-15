@@ -299,10 +299,9 @@ Thus, our little story on the curse of dimensionality holds true. We indeed can 
 
 ### Simulated Data
 
-We will present and analyze the results of thousands of simulated datasets. Simulated datasets give us much more control, and is the only way to obtain **The Real Ground Truth of Regression.**
+We will present and analyze the results of thousands of simulated datasets. Simulated datasets give us much more control and certainty.
 
-#### Linear Regression | The Real Ground Truth
-Note, here weights and coefficients mean the same thing.
+#### The Real Ground Truth of Regression
 
 When we think of the "ground truth" for linear regression problems we think of  y-actual. There is in-fact a better ground truth! If one somehow knew the true values of the coefficients, then that would be an even better ground truth, i.e. coefficients-actual. It is indeed possible for y-actual and y-predicted
 to be near to one another and still have come up with the wrong answer, e.g. overfitting. If we rethink overfitting, we could describe it as when coefficients-actual is far from coefficients-predicted, but we were able to guess a y-predicted close to the y-actual.
@@ -311,7 +310,7 @@ Alas, in real life with real data it is impossible to ever have the ground truth
 
 There is one way we can get the ground truth for coefficients, by simulating data artificially. This is the only way to ever be 100% certian of a datasets coefficients. 
 
-**Question:** Why would this be useful to do though?  
+**Question:** Why would this be useful to do though?
 **Answer:** To robustly test the performance of a new regression algorithm against existing regression algorithms.
 
 Sure, we can use k-fold cross validation to test, but that is never perfect. If we were given the ground truth for coefficients (weights) we would not even need to do k-fold cross validation. We could simply get the RMSE of the weights-predicted against the weights-actual. We no longer need to worry about overfitting, as we have a perfect indicator of accuracy.
@@ -329,36 +328,66 @@ Now, let's test this. **Let's throw every permutation of data that we can genera
 
 Again we created robust and scalable functions that make the testing of thousands of flavors of data easy. Let's go through these results.
 
-[Insert Image of RMSE on Low Dim Data...]
-  
 |![alt-text-5](RME_Feature_to_Samples.png "title-1")|
 |:--:|
 |*Fig 5. 1|
 
 [Analysis Here...]
 
-|![alt-text-6](F1_Feature_to_Samples.png "title-1")|
+The simulated data above is of sparse coefficients where for every 100 features only 5 are informative. This remains constant. The plot displays the effect of increasing the ratio of features to samples. Least squares performs exceptionally well up until the features exceeds samples. After features exceeds samples, Lasso flavored algorithms will outperform. Once features exceeds samples by a 5:1 ratio Lasso becomes unstable and will slowly converge on the performance of other other regression methods.
+
+|![alt-text-6](Fq_Feature_to_Samples.png "title-1")|
 |:--:|
 |*Fig 6. 1|
 
-[Analysis Here...]
+For high dimensional data F1 becomes a helpful indicator of performance along with RMSE. We calculate F1 in the traditional way, but convert our coefficients to binaries where non-zero coefficients are false and zero's coefficients are true. F1 becomes more important than RMSE we care more about feature selection than the actual exact coefficient values. Of course, OLS/Ridge are not meant to be taken seriously as far as F1 scores. We see that Adaptive lasso remarkably better at feature selection than Lasso when the ratio of features to samples is between 2 and 5.
 
 |![alt-text-7](Runtime_Feature_to_Samples.png "title-1")|
 |:--:|
 |*Fig 7. 1|
 
-[Analysis Here...]
+The runtime is seen here, and it is noteworthy that Lasso flavored algorithms take considerable longer, because of how sklearn handles them. 
+
 
 |![alt-text-8](RME_Constant.png "title-1")|
 |:--:|
 |*Fig 8. 1|
 
-[Analysis Here...]
+If the ratio of features to samples to informative features remains constant to performance of all regression algorithms do not degrade.
 
+
+|![alt-text-9](RME_Informative.png "title-1")|
+|:--:|
+|*Fig 9. 1|
+
+Here we have a constant of 400 features and 400 samples – so this is a square dataset. We observe that occurs then the number of informative features increases. We see this has a drastic effect. When the ratio of informative features to features exceeds 1:2 we begin to see instability in the Lasso flavored algorithms. Adaptive l
+
+|![alt-text-10](F1_Informative.png "title-1")|
+|:--:|
+|*Fig 10. 1|
+
+For predicting important features the Lasso flavored algorithms perform strongly until the informative features begin to exceed the features. Remarkably the F1 is high throughout the entire plot, implying that mostly the RMSE degrades as this ratio of informative features to features increases. Another conclusion from this is that when samples is equal to features, the Lasso flavored algorithms have little problem with feature selection. It will just be the case that their coefficients are off.
+
+
+|![alt-text-11](F1_Informative.png "title-1")|
+|:--:|
+|*Fig 11. 1|
+
+If we change the ratio if features to samples to 10:1 we see drastically more unstable performance as far as F1 and RMSE. The performance has degraded well once the number of important features exceeds the samples. From this we can reasonably suggest that it is hopeless to perform accurate regression analysis on datasets who's important features exceed samples – of course we may never know the important features.
+
+|![alt-text-12](F1_Informative.png "title-1")|
+|:--:|
+|*Fig 12. 1|
+
+|![alt-text-13](F1_Informative.png "title-1")|
+|:--:|
+|*Fig 13. 1|
 
 ### Random Lasso
 
 Random Lasso shows great promise in dealing with extreme high dimensional data. However, a stable Random Lasso does not exist in practice. We were never able to implement a stable release of Random Lasso in Python. However, the author James Matthew Hamilton has **a stable release of Random Lasso that outperforms all other regression methods consistently but marginally in terms of RMSE on simulated data**. There are many flavors of Random Lasso, the one we attempted to implement is called HiLasso. The author James Matthew Hamilton will continue to work on unlocking Random Lasso's potential outside the scope of this project.
+
+Random lasso forces samples to be equal to features in a bootstrapping process. It capitalized on some of the properties displayed in the simulated performance testing – manly that when samples is equal to features there is always some strong performance in Lasso flavored algorithms.
 
 
 # References 
