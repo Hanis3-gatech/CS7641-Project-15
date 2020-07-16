@@ -179,7 +179,6 @@ Looking at the actual coefficients of at the aforementioned indices yields nothi
 
 |![alt-text-9](real_data_regression.png "title-1")|
 |:--:|
-|
 |*Fig 5*|
 
 It was difficult to put this much information into one plot. This is essentially the coefficients of each of the regression methods on a log scale. I cleverly chose symbols for each of these that would aid in analysis – though that is not apparent upfront.
