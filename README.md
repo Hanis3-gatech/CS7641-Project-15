@@ -311,7 +311,7 @@ Alas, in real life with real data it is impossible to ever have the ground truth
 
 There is one way we can get the ground truth for coefficients, by simulating data artificially. This is the only way to ever be 100% certian of a datasets coefficients. 
 
-**Question:** Why would this be useful to do though?
+**Question:** Why would this be useful to do though?  
 **Answer:** To robustly test the performance of a new regression algorithm against existing regression algorithms.
 
 Sure, we can use k-fold cross validation to test, but that is never perfect. If we were given the ground truth for coefficients (weights) we would not even need to do k-fold cross validation. We could simply get the RMSE of the weights-predicted against the weights-actual. We no longer need to worry about overfitting, as we have a perfect indicator of accuracy.
