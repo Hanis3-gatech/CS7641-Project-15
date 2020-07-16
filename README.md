@@ -362,3 +362,6 @@ Random Lasso shows great promise in dealing with extreme high dimensional data. 
 
 
 # References 
+[1] S.Wang, B.Nan, S.Rosset,and J.Zhu,"Random lasso," The annals of applied statistics, vol.5, no.1, p.468, 2011. <br/>
+ [2] Y.Kim, J.Hao, T.Mallavarapu, J.Park, and M.Kang, "Hi-LASSO:High-DimensionalLASSO," IEEE Access, vol.7, pp.44562-44573, 2019 <br/>
+ [3] H.Zou, "The adaptive lasso and its oracle properties," Journal of the American statistical association, vol.101, no.476, pp.1418-1429, 2006.
