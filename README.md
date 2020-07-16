@@ -332,11 +332,9 @@ Again we created robust and scalable functions that make the testing of thousand
 |:--:|
 |*Fig 5. 1|
 
-[Analysis Here...]
-
 The simulated data above is of sparse coefficients where for every 100 features only 5 are informative. This remains constant. The plot displays the effect of increasing the ratio of features to samples. Least squares performs exceptionally well up until the features exceeds samples. After features exceeds samples, Lasso flavored algorithms will outperform. Once features exceeds samples by a 5:1 ratio Lasso becomes unstable and will slowly converge on the performance of other other regression methods.
 
-|![alt-text-6](F1_Feature_to_Samples_S.png "title-1")|
+|![alt-text-20](F1_Feature_to_Samples_S.png "title-1")|
 |:--:|
 |*Fig 6. 1|
 
